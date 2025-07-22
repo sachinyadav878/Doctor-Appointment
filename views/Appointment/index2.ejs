@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Doctor Dashboard</title>
+	<link rel="stylesheet" href="/css/styles.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar">
+        
+        <div class="logo"> <a href="/dashboard"> <h2>We Care</h2></a></div>
+      
+        <ul>
+            <li class=" "><a style="color: red;" href="/dashboard"><i class="fa-solid fa-backward"></i></i>Back to Dashboard</a></li>
+            <li class="toggle1 "><a href="#"><i class="fas home fa-home"></i>Home</a></li>
+            <!-- <li class="toggle3 "><a href="#"><i class="fas about fa-address-card"></i>About</a></li> -->
+            <li class="toggle4 "><a href="#"><i class="fas appoint fa-project-diagram"></i>Appointments</a></li>
+            <!-- <li class="toggle5 "><a href="#"><i class="fas chat fa-blog"></i>Let's Chat</a></li> -->
+            <li class="toggle6 "><a href="#"><i class="fas payment fa-address-book"></i>Payment Record</a></li>
+            <!-- <li class="toggle7 "><a href="#"><i class="fas map fa-map-pin"></i>Create Appointments</a></li> -->
+            <!-- <li class="toggle8 "><a href="#"><i class="fas map fa-map-pin"></i>Appointments</a></li> -->
+        
+        </ul> 
+        <div class="social_media">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="main_content">
+       
+   <div class="nav" style="display: flex;justify-content:right;gap:15px;align-items:center;padding-right:25px">
+   
+    <div class="pro-img">
+        <a style="font-size: 30px;" href="/profile"><img src="/images/<%= user.image %>" alt=""></a>
+   
+     
+    </div>
+    <div>
+          <a style="background-color: white; text-decoration:none; border-radius:5px; height:25px; text-align:center;padding:5px;color:red;" href="/logout"><i class="fa-solid fa-right-from-bracket"></i>  Logout</a>
+
+    </div>
+  </div>
+<div class="container">
+    <!-- Upcoming Appointments Section -->
+  <div class="section1">
+    <div id="appointments-section">
+       
+
+        <h2>Your Booked Appointments</h2>
+       
+    <div class="bookdata">
+        <% if (mailDataList.length > 0) { %>
+            <% mailDataList.forEach(mail => { %>
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Render the HTML content -->
+                        <%- mail.html %>
+                    </div>
+                    <div class="card-footer">
+                        <b>Sent At:</b> <%= new Date(mail.sentAt).toLocaleString() %>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <div class="no-data">No Mail Data Found</div>
+        <% } %>
+       </div>
+    </div>
+
+    <!-- Payment Records Section -->
+ 
+  </div>
+    <!-- Client Chat Section -->
+    <div id="chat-section">
+        <h2>Client Chat</h2>
+        <div id="chat-container">
+            <!-- Chat messages will appear here -->
+        </div>
+        <input type="text" id="chat-input" placeholder="Type a message..." />
+        <button id="send-button">Send</button>
+    </div>
+</div>
+
+<div class="meeting-section">
+    <div id="create-meetings">
+        <div>
+            <h2>Create Meeting</h2>
+            <form id="meeting-form">
+                <input type="text" id="title" placeholder="Meeting Title" required />
+                <input type="datetime-local" id="date" required />
+                <input type="text" id="link" placeholder="Meeting Link" required />
+                <select id="students" multiple required></select>
+                <button type="submit">Create Meeting</button>
+            </form>
+        </div>
+    
+        <div>
+            <h2>Upcoming Meetings</h2>
+        <div id="teacher-upcoming-meetings"></div>
+        </div>
+       
+    </div>
+</div>
+
+
+
+
+
+
+   
+
+    
+
+
+
+</div>
+
+
+<!-- meeting creation and appointment detail  -->
+
+<!-- -------------------------end meet--------------- -->
+
+<script src="/js/app.js"></script>
+<script src="/js/scripts.js"></script>
+
+<script>
+    
+    console.log(key);
+    function update(){
+        window.location.href="/Profile"
+    }
+</script>
+
+</body>
+</html>

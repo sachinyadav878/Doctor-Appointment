@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0px;
+    background:linear-gradient(rgba(0,0,0,0.85),rgba(0,0,0,0.85)),url(../images/robo-back.jpg);
+    /* background-repeat: no-repeat; */
+    background-size: cover;
+    height: 98vh;
+}
+
+  
+  button{
+    font-family: "Host Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.heading h1{
+    font-family: "Doto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    font-size: 35px;
+}
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: rgb(20, 19, 19);
+    color: white;
+    border: 1px solid white;
+    font-family: "Host Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    
+}
+.toggleoff{
+    display: none;
+    font-size: 20px;
+}
+.toggleon{
+    font-size: 20px;
+    display: none;
+}
+#botSpeechContainer img{
+    margin-left: 4px ;
+    margin-top: 4.5px;
+}
+
+#botSpeechContainer{
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(-45deg, #3875d7, #000000);
+    background-size: 400% 400%;
+    animation: gradient 1.5s ease infinite;
+   
+    border-radius: 50%;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+.inputf{
+    padding: 40px;
+    padding-bottom: 20px;
+}
+.robot img{
+    border-radius: 50%;
+}
+.robot{
+    padding: 100px;
+}
+.main input, button{
+    padding: 5px;
+    width: 200px;
+}
+
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+    margin-top: 0;
+    margin-bottom: 20px;
+    /* gap: 100px; */
+}
+.output{
+   max-width:350px;
+   overflow-x: scroll;
+   overflow-y: scroll;
+   scroll-behavior: smooth;
+   max-height:400px;
+   padding: 25px;
+   
+}
+#loadingSpinner{
+    margin-top: 200px;
+}
+
+#patientForm{
+    height: 400px;
+    
+}
+
+@media (max-width:764px){
+    .main{
+        flex-direction: column;
+        height: 100%;
+        /* margin-top: 200px; */
+    }
+    body{
+        height: auto;
+    }
+    
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db; /* Blue color */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+}
+
+/* Animation for rotating the spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 10px;
+}
+
+.botField{
+    display: flex;
+    justify-content: space-between;
+}
+
+#con-doc{
+    margin-left: 100px;
+    color: white;
+    background-color: red;
+}
+
+#playButton, #pauseButton {
+    font-size: 25px;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+#togglePlayPauseButton span{
+ font-size: 20px;
+}
+#togglePlayPauseButton{
+    margin-left: 100px;
+}
+#playButton:hover, #pauseButton:hover {
+    background-color: #0056b3;
+}

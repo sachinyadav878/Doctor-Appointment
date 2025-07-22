@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Appointments</title>
+</head>
+<body>
+  <h1>My Appointments</h1>
+  <div id="appointments-container"></div>
+
+  <script>
+    async function fetchAppointments() {
+      try {
+        const response = await fetch('/my-appointments', { method: 'GET' });
+        if (!response.ok) {
+          throw new Error('Failed to fetch appointments');
+        }
+        const appointments = await response.json();
+
+        // Render appointments
+        const container = document.getElementById('appointments-container');
+        container.innerHTML = '';
+
+        appointments.forEach(appointment => {
+          const appointmentCard = `
+            <div class="appointment-card">
+              <h3>Doctor: ${appointment.doctorId.name} (${appointment.doctorId.specialization})</h3>
+              <p><b>Date & Time:</b> ${appointment.timeSlot}</p>
+              <p><b>Subject:</b> ${appointment.subject}</p>
+              <p><b>Details:</b> ${appointment.html}</p>
+
+            </div>
+          `;
+          container.innerHTML += appointmentCard;
+        });
+      } catch (error) {
+        console.error('Error:', error.message);
+        alert('Failed to load appointments.');
+      }
+    }
+
+    // Fetch appointments on page load
+    fetchAppointments();
+  </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color:  #1b1b1b;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        input{
+            border: 2px solid black;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 25px 30px;
+            width: 400px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .container h1 {
+            font-size: 24px;
+            color: #ff0000;
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 90%;
+            padding: 12px;
+            border: 1px solid #414141;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        textarea:focus {
+            border-color: #00bcd4;
+            box-shadow: 0 0 5px rgba(0, 188, 212, 0.5);
+        }
+
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .btn-submit {
+            background-color: rgb(255, 38, 0);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            background:rgb(91, 204, 91);
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        .form-control label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .form-control small {
+            display: block;
+            text-align: left;
+            margin-top: 5px;
+            color: #2d2d2d;
+            font-size: 12px;
+        }
+
+        #loadingSpinner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+    
+        #thankYouModal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>We Value Your Feedback</h1>
+        <form id="feedbackForm" action="/submit-feedback" method="POST">
+            <div class="form-control">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required />
+            </div>
+            <div class="form-control">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required />
+            </div>
+            <div class="form-control">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required />
+            </div>
+            <div class="form-control">
+                <label for="feedback">Feedback</label>
+                <textarea id="feedback" name="feedback" placeholder="Share your feedback" required></textarea>
+                <small>Your feedback helps us improve!</small>
+            </div>
+            <button type="submit" class="btn-submit">Submit Feedback</button>
+        </form>
+
+
+         <!-- Loading Spinner -->
+    <div id="loadingSpinner" style="display: none;">
+        <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..." style="width: 50px; height: 50px;" />
+    </div>
+
+    <!-- Thank You Modal -->
+    <div id="thankYouModal" style="display: none;">
+        <p>Thank you for your feedback!</p>
+    </div>
+    </div>
+
+  
+    
+</body>
+</html>

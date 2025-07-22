@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    width: 50%;
+    margin: 0 auto;
+  }
+  
+  input, textarea, button {
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table, th, td {
+    border: 1px solid black;
+    padding: 10px;
+  }
+  
+  button {
+    padding: 10px;
+  }
+  

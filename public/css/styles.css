@@ -1,0 +1,374 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+body{
+  background: linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),url(/images/3641634.jpg) ; 
+  background-size: 100%;
+  overflow-x: hidden;
+}
+
+
+
+
+#chat-section,.meeting-section{
+  display: none;
+}
+#appointments-section, #payments-section{
+  display: block;
+}
+
+.nav{ 
+    background-color: rgb(97, 97, 251);
+    height: 60px;
+    width: 100%;
+    display: flex;
+   justify-content: end; 
+
+}
+.nav a{
+    
+  cursor: pointer;
+  color: white;
+  gap: 5px;
+  margin-top: 15px;
+
+}
+.pro-img img{
+  margin-top: 10px;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+}
+.wrapper{
+  display: flex;
+  position: relative;
+}
+
+.wrapper .sidebar{
+  width: 230px;
+  height: 100%;
+  background: #f4f4f6;
+  padding: 10px 0px;
+  position: fixed;
+  color: #000000;
+ 
+ 
+  
+}
+
+.wrapper .sidebar h2{
+  color: #fff9f9;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.sidebar ul{
+    margin-top: 50px;
+}
+.wrapper .sidebar ul li{
+    
+  padding: 15px;
+  border-bottom: 1px solid #bdb8d7;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.34);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  text-align: center;
+}    
+
+.wrapper .sidebar ul li a{
+  color: #000000;
+  display: block;
+}
+
+.wrapper .sidebar ul li a .fas{
+  width: 25px;
+}
+
+.wrapper .sidebar ul li:hover{
+  background-color: #583edc;
+}
+    
+.wrapper .sidebar ul li:hover a{
+  color: #fff;
+}
+ 
+.wrapper .sidebar .social_media{
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.wrapper .sidebar .social_media a{
+  display: block;
+  width: 40px;
+  background: #583edc;
+  height: 40px;
+  line-height: 45px;
+  text-align: center;
+  margin: 0 5px;
+  color: #bdb8d7;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.wrapper .main_content{
+  width: 100%;
+  margin-left: 230px;
+}
+
+.wrapper .main_content .header{
+  padding: 20px;
+  background: #fff;
+  color: #717171;
+  border-bottom: 1px solid #e0e4e8;
+}
+
+.wrapper .main_content .info{
+  margin: 20px;
+  color: #ffffff;
+  line-height: 25px;
+}
+
+.wrapper .main_content .info div{
+  margin-bottom: 20px;
+}
+.logo{
+    background-color:  rgb(97, 97, 251);
+    height: 60px;
+    margin-top: -30px;
+}
+.logo h2{
+    text-align: center;
+    align-items: center;
+}
+.sidebar{
+  background-color: #ecf0f1;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* 
+.sidebar h2{
+    background-color:white;
+    margin-top: -10px;
+    height: 58px;
+    box-shadow:0px 2px 2px #583edc;
+} */
+
+
+/* --------------- */
+
+.container {
+    width: 100%;
+    overflow: hidden;
+    margin-left: 100px;
+   
+    
+}
+h2 {
+    background-color: #35424a;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    margin-top: 20px;
+}
+#appointments-section, #payments-section, #chat-section {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #ffffffa9;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+#appointments-section, #payments-section{
+    width: 50rem;
+    height: 600px;
+    overflow-y: scroll;
+}
+#chat-section{
+    margin-right: 50px;
+    width: 75%;
+}
+#appointments-list li, #payments-list tr {
+    
+    display: flex;
+   
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+#payments-list tr{
+    gap:16rem;
+}
+table tr{
+    display: flex;
+    justify-content: space-between;
+}
+#appointments-list li:last-child, #payments-list tr:last-child {
+    border-bottom: none;
+}
+#chat-container {
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    
+}
+#chat-input {
+    width: 75%;
+    padding: 10px;
+    margin-right: 5px;
+}
+#send-button {
+    padding: 10px 15px;
+    background-color: #35424a;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+#send-button:hover {
+    background-color: #45a049;
+}
+
+
+
+
+
+/* -------------------------meeting - Appointment ------------ */
+
+#meeting-form {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#meeting-form button {
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#meeting-form button:hover {
+  background-color: #45a049;
+}
+
+#create-meetings form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#create-meetings input, select {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#create-meetings select {
+  height: 100px;
+}
+#teacher-upcoming-meetings {
+  margin-top: 20px;
+  width: 80%;
+}
+#teacher-upcoming-meetings > div {
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#teacher-upcoming-meetings h3 {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+#teacher-upcoming-meetings p {
+  margin: 5px 0;
+}
+
+
+#create-meetings{
+  padding: 30px;
+  width: 60%;
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  background-color: #35424ac1;
+  
+}
+#teacher-upcoming-meetings{
+  height: 300px;
+  overflow: scroll;
+  width: 260px;
+  padding: 10px;
+}
+
+
+
+/* end meeting / appointment ----------------- */
+
+
+
+
+
+         .bookdata{
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+           
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .bookdata .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 600px;
+            margin: 20px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+      .bookdata .card:hover {
+            transform: scale(1.05);
+        }
+
+       .bookdata .card-body {
+            padding: 15px;
+        }
+
+       .bookdata .card-footer {
+            text-align: right;
+            padding: 10px;
+            background: #f8f9fa;
+            font-size: 12px;
+            color: #666;
+        }
+
+       .bookdata .no-data {
+            text-align: center;
+            margin: 50px;
+            font-size: 18px;
+            color: #666;
+        }
+    

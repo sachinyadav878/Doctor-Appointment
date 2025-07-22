@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body>
+    <div class="navbar-container">
+        <div class="hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav class="sidebar" id="sidebar">
+            <div class="logo">
+                <i class="fas fa-user-cog"></i>
+                <span>Admin Panel</span>
+
+            </div>
+            <ul class="nav-links">
+                <li><a href="#dash"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li> <br>
+                <li class="submenu">
+                    <a href="#doct"><i class="fas fa-users"></i> Add/remove Req
+                           </a> <br>
+                  
+
+                </li>
+                <li class="submenu">
+                    <a href="#doct2"><i class="fas fa-chart-bar"></i> Doctor
+                    </a> <br>
+                 
+                </li> 
+                <li><a href="#feed"><i class="fa-solid fa-gears"></i>Feedback report</a></li><br>
+                <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <div class="main-content" id="dash">
+        <h1 class="dashboard-title">Admin Dashboard</h1>
+
+        <!-- Cards Section -->
+        <div class="dashboard-cards">
+            <div class="card total-bikes">
+                <div class="card-icon">
+                    <i class="fa-solid fa-users-viewfinder"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Total Users</h3>
+                    <p><%= userCount %></p>
+                </div>
+            </div>
+            <div class="card total-rentals">
+                <div class="card-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Total Doctors</h3>
+                    <p><%= doctorCount %></p>
+                </div>
+            </div>
+            <div class="card available-bikes">
+                <div class="card-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Available Doctor</h3>
+                    <p><%= doctorCount %></p>
+                </div>
+            </div>
+            <div class="card damaged-bikes">
+                <div class="card-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="card-content">
+                    <h3>New Doctor</h3>
+                    <p>2</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-container">
+            <!-- Graph Section -->
+      
+            <div class="dashboard-graphs">
+              <div class="graph chart-users">
+                  <h3>Users Over Time</h3>
+                  <canvas id="usersChart"></canvas>
+              </div>
+              <div class="graph chart-feedbacks">
+                  <h3>Feedback Trends</h3>
+                  <canvas id="feedbackChart"></canvas>
+              </div>
+          </div>
+  
+
+            <!-- Circular Data Cards Section -->
+            <div class="circular-data-cards">
+                <!-- Earned Money Card -->
+                <div class="data-card">
+                    <div class="icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="card-info">
+                        <p>Total Earned</p>
+                        <h3>₹<%= totalRevenue %></h3>
+                        <p>Last 30 days</p>
+                        <div class="circular-loader" data-percentage="80"></div>
+                    </div>
+                </div>
+
+
+                <!-- Active Users Card -->
+                <div class="data-card">
+                    <div class="icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-info">
+                        <p>Active Users</p>
+                        <h3><%= userCount %></h3>
+                        
+                        <div class="circular-loader" data-percentage="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<br><br>
+        <div id="viewAnalytics">
+            <h2>View Analytics</h2>
+            <div class="analyticsGrid">
+                <div class="analyticsCard">
+                    <h3>Total Feedback</h3>
+                    <p><%= totalFeed %></p>
+                </div>
+                <div class="analyticsCard">
+                    <h3>Revenue</h3>
+                    <p>₹<%= totalRevenue %></p>
+                </div>
+                <div class="analyticsCard">
+                    <h3>Popular Doctor</h3>
+                    <p>Dr Robo</p>
+                </div>
+                <div class="analyticsCard">
+                    <h3>Doctor Preference</h3>
+                    <p>Robo AI</p>
+                </div>
+            </div>
+        </div>
+<br><br>
+        <section id="doct" class="doct">
+            <h1>Admin - Doctor Requests</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Specialization</th>
+                  <th>Experience</th>
+                  <th>About</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% requests.forEach(request => { %>
+                  <tr>
+                    <td><%= request.name %></td>
+                    <td><%= request.specialization %></td>
+                    <td><%= request.experience %></td>
+                    <td>
+                      <div class="about-section">
+                        <%= request.about %>
+                      </div>
+                    </td>
+                    
+                    <td>
+                      <form action="/admin/<%= request._id %>/accept" method="POST" style="display: inline;">
+                        <button type="submit" class="accept">Accept</button>
+                      </form>
+                      <form action="/admin/<%= request._id %>/reject" method="POST" style="display: inline;">
+                        <button type="submit" class="reject">Reject</button>
+                      </form>
+                    </td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          
+           </section>
+          <br><br>
+            <section id="doct2" class="doct doct2">
+              <h1>Available Doctors</h1>
+            <div class="doctors-container">
+              <% doctors.forEach(doctor => { 
+                let aboutLength = doctor.about.length; 
+                let rating = 2; // Default rating
+                
+                if (aboutLength > 200) rating = 4;
+                else if (aboutLength > 150) rating = 3;
+          
+              %>
+              <form action="/admin/remove/<%= doctor._id %>" method="POST" style="display: inline;">
+                
+                <div class="doctor-card">
+                  <img src="<%= doctor.image || '/images/demo-profile.jpg' %>" alt="<%= doctor.name %>" class="doctor-image">
+                  <div class="doctor-name"><%= doctor.name %></div>
+                  <div class="doctor-specialization">Specialization: <%= doctor.specialization %></div>
+                  <div class="doctor-experience">Experience: <%= doctor.experience %> years</div>
+                  <div class="doctor-about"><%= doctor.about %></div>
+                
+                  <button type="submit" class="reject">Remove</button>
+                </form>
+                  <div class="doctor-rating">
+                    <% for (let i = 1; i <= 5; i++) { %>
+                      <% if (i <= rating) { %>
+                        <span>★</span>
+                      <% } else { %>
+                        <span class="inactive-star">★</span>
+                      <% } %>
+                    <% } %>
+                  </div>
+                </div>
+              <% }) %>
+            </div>
+            </section>
+<br><br>
+<!-- feedback  -->
+            <h1 id="feed" style="text-align: center;">All Feedbacks</h1>
+            <div class="table-wrapper2">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Feedback</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% feedbacks.forEach(feedback => { %>
+                    <tr>
+                      <td><%= feedback.name %></td>
+                      <td><%= feedback.phone %></td>
+                      <td><%= feedback.email %></td>
+                      <td><%= feedback.feedback %></td>
+                      <td>
+                        <form action="/remove-feedback" method="POST">
+                          <input type="hidden" name="feedbackId" value="<%= feedback._id %>">
+                          <button type="submit">Remove</button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- end feedback  -->
+
+    </div>
+   
+
+    <!-- Scroll-to-top arrow -->
+    <div id="scrollToTop" class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <div id="chart-data" 
+    data-user-count="<%= userCount %>" 
+    data-doctor-count="<%= doctorCount %>" 
+    data-total-revenue="<%= totalRevenue %>" 
+    data-feedback-count="<%= totalFeed %>">
+</div>
+
+<script>
+
+ const chartDataElement = document.getElementById('chart-data');
+
+ const userCount = parseInt(chartDataElement.dataset.userCount, 10);
+ const doctorCount = parseInt(chartDataElement.dataset.doctorCount, 10);
+ const totalRevenue = parseInt(chartDataElement.dataset.totalRevenue, 10);
+ const feedbackCount = parseInt(chartDataElement.dataset.feedbackCount, 10);
+
+ const usersChartCtx = document.getElementById('usersChart').getContext('2d');
+ const usersChart = new Chart(usersChartCtx, {
+   type: 'line',
+   data: {
+     labels: ['January', 'February', 'March', 'April', 'May', 'June','july','August','September','october','november','december'],
+     datasets: [{
+       label: 'Users Count',
+       data: [userCount*0, userCount * 0, userCount * 0, userCount * 0, userCount *0, userCount *0,userCount *0,userCount *0,userCount *0,userCount *0,userCount *0,userCount * 2.2], 
+       borderColor: 'rgba(75, 192, 192, 1)',
+       borderWidth: 1,
+       fill: false
+     }]
+   },
+   options: {
+     responsive: true,
+     scales: {
+       y: {
+         beginAtZero: true
+       }
+     }
+   }
+ });
+
+ const feedbackChartCtx = document.getElementById('feedbackChart').getContext('2d');
+ const feedbackChart = new Chart(feedbackChartCtx, {
+   type: 'bar',
+   data: {
+     labels: ['Positive', 'Neutral', 'Negative'],
+     datasets: [{
+       label: 'Feedback Trends',
+       data: [feedbackCount * 0.7, feedbackCount * 0.2, feedbackCount * 0.1], // Example breakdown of feedback types
+       backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+       borderColor: ['rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
+       borderWidth: 1
+     }]
+   },
+   options: {
+     responsive: true,
+     scales: {
+       y: {
+         beginAtZero: true
+       }
+     }
+   }
+ });
+</script>
+    
+
+    <script src="/js/admin.js"></script>
+</body>
+
+</html>

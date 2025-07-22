@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nearby Pharmacies & Healthcare</title>
+  <style>
+  /* Global styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.9)), url(/images/pharmacy.jpg);
+    background-size: cover;
+    color: #fff;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ffb703;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+  }
+
+  #results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  /* Card styles */
+  .card {
+    background: rgba(41, 40, 40, 0.988);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 1s ease-in-out;
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+  .card h3 {
+    font-size: 1.5rem;
+    color: #ededed;
+    margin-bottom: 10px;
+  }
+
+  .card p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #f7ff55;
+  }
+
+  /* Fade-in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Button for loading error messages */
+  .error {
+    text-align: center;
+    background: rgba(255, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 500px;
+    font-size: 1.2rem;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  /* Media query for responsiveness */
+  @media (max-width: 768px) {
+    .card {
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Nearby Pharmacies & Healthcare</h1>
+    <div id="results">
+      <!-- Cards will be dynamically added here -->
+    </div>
+  </div>
+
+  <script>
+    // Your Geoapify API key
+    const API_KEY = "429851aa1e5e442e954e4447061d42bb";
+
+    let userLatitude, userLongitude;
+
+    // Function to get user location
+    function getUserLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showNearbyPlaces, handleLocationError);
+      } else {
+        displayError("Geolocation is not supported by your browser.");
+      }
+    }
+
+    // Function to fetch nearby pharmacies and healthcare facilities
+    async function showNearbyPlaces(position) {
+      userLatitude = position.coords.latitude;
+      userLongitude = position.coords.longitude;
+
+      // API URL to fetch pharmacies and healthcare locations
+      const url = `https://api.geoapify.com/v2/places?categories=healthcare.pharmacy,healthcare&filter=circle:${userLongitude},${userLatitude},5000&limit=20&apiKey=${API_KEY}`;
+      
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        displayResults(data.features);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        displayError("An error occurred while fetching the data. Please try again.");
+      }
+    }
+
+    // Function to display results in cards
+    function displayResults(places) {
+      const resultsDiv = document.getElementById("results");
+
+      if (places.length === 0) {
+        resultsDiv.innerHTML = "<p class='error'>No pharmacies or healthcare facilities found nearby.</p>";
+        return;
+      }
+
+      places.forEach(place => {
+        const { name, address_line1, address_line2, distance, lat, lon } = place.properties;
+
+        // Create a card for each place
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h3>${name || "Unknown Name"}</h3>
+          <p><strong>Address:</strong> ${address_line1 || "N/A"}, ${address_line2 || ""}</p>
+          <p><strong>Distance:</strong> ${(distance / 1000).toFixed(2)} km</p>
+        `;
+
+        // Add event listener to open Google Maps for directions
+        card.addEventListener("click", () => {
+          const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLatitude},${userLongitude}&destination=${lat},${lon}&travelmode=driving`;
+          window.open(googleMapsUrl, "_blank");
+        });
+
+        resultsDiv.appendChild(card);
+      });
+    }
+
+    // Error handling for geolocation
+    function handleLocationError(error) {
+      console.error("Error getting location:", error);
+      displayError("Unable to retrieve your location. Please allow location access and try again.");
+    }
+
+    // Function to display error messages
+    function displayError(message) {
+      const resultsDiv = document.getElementById("results");
+      resultsDiv.innerHTML = `<div class="error">${message}</div>`;
+    }
+
+    // Initialize the app
+    document.addEventListener("DOMContentLoaded", getUserLocation);
+  </script>
+</body>
+</html>

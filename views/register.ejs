@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- <link rel="stylesheet" href="/css/style.css">x  -->
+    <style>
+
+        body{
+            background: linear-gradient(rgba(0,0,0,0.85),rgba(0,0,0,0.5)),url(/images/fpbg1.jpg);
+        }
+          
+    .login-form-container {
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: fadeIn 0.5s forwards;
+          }
+          
+          @keyframes fadeIn {
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+        
+          
+
+.form-wrapper {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 100vh;
+   
+  }
+  
+  .login-form-container,
+  .signup-form-container {
+    max-width: 300px;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(180, 232, 244, 0.771);
+    text-align: center;
+    position: relative;
+    scale:1.3;
+  }
+  
+  .login-form-container::before,
+  .signup-form-container::before {
+ 
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0,0,0,0.96),rgba(0,0,0,0.75)),url(/images/login-back.jpg);
+    border-radius: 10px;
+    z-index: -1;
+  }
+  
+  h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+  
+  input {
+    
+    width: 80%;
+    padding: 10px;
+    margin: 0.5rem 0;
+    box-sizing: border-box;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+  }
+  
+  input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  button {
+    font-size: 15px;
+    width: 40%;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  p {
+    margin-top: 1rem;
+    font-size: 14px;
+  }
+  
+  a{
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  .login-title {
+    margin-bottom: 1rem;
+  }
+  
+  .login-button {
+    font-size: 15px;
+    width: 40%;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+  }
+  .signup-title {
+    margin-bottom: 1rem;
+  }
+  
+  .signup-button {
+    font-size: 15px;
+    width: 40%;
+    padding: 10px;
+    background: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .signup-button:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+  }
+  button:active, a:active {
+    transform: scale(0.98);
+  }
+    </style>
+</head>
+<body>
+    
+
+    <div class="form-wrapper " style="color:white">
+        <div class="signup-form-container" style="max-width: 700px;">
+          <h2 class="signup-title">Sign Up</h2>
+          <form action="/register" method="POST" style="display: flex;justify-content:space-around;gap:100px">
+            <% if (typeof message !== 'undefined') { %>
+                <div class="message"><%= message %></div>
+            <% } %>
+           <div>
+            <input class="signup-input" type="text" name="name" placeholder="Enter username" class="box" required>
+            <input class="signup-input" type="email" name="email" placeholder="Enter email" class="box" required>
+            
+            <input class="signup-input" type="password" name="password" placeholder="Enter password" class="box" required>
+            <input class="signup-input" type="password" name="cpassword" placeholder="Confirm password" class="box" required>
+           </div>
+          <div style="width: 800px; ">
+            <label style="margin-right: 40px; padding:10px;font-size:20px" for="description">About</label>
+            <textarea name="description" id="description" id="" placeholder="About youself"></textarea> <br>
+            
+            <div style="display: flex; justify-content:space-around;gap:10px;">
+               <div > <p style="font-size:20px"> Gender</p></div>
+              <div style="display: flex; justify-content:center;gap:10px;">
+                <div >
+                    <input  type="radio" id="gender" name="gender" value="Male">
+                    <label for="Male">Male</label>
+                   </div>
+                 <div>
+                    <input  type="radio" id="gender" name="gender" value="Female">
+                    <label for="Female">Female</label>
+                 </div>
+              </div>
+            </div>
+           
+            <br>
+
+            <input class="signup-input" type="file" name="image" class="box" accept="image/jpg, image/jpeg, image/png">
+            <input class="signup-button" type="submit" value="Register Now" class="btn">
+            <p>
+              Already have an account? <a href="/login">Login</a>
+            </p>
+          </div>
+          </form>
+        </div>
+      </div>
+      
+</body>
+</html>

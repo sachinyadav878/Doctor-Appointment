@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Doctors</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(/images/4.jpg);
+      background-size: cover;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffffff;
+      margin-bottom: 30px;
+    }
+
+    .doctors-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .doctor-card {
+      background-color: #2c2c2c;
+      
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .doctor-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .doctor-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .doctor-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #d0ff00;
+    }
+
+    .doctor-specialization,
+    .doctor-experience {
+      font-size: 14px;
+      color: #26f9c1;
+      margin-bottom: 10px;
+    }
+
+    .doctor-about {
+      font-size: 14px;
+      color: #555;
+      margin: 10px 0;
+      max-height: 80px;
+      overflow-y: auto;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .doctor-rating {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .doctor-rating span {
+      font-size: 20px;
+      color: gold;
+      margin-right: 2px;
+    }
+
+    .doctor-rating .inactive-star {
+      color: #ddd;
+    }
+
+    .book-btn {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background-color: #ce891a;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .book-btn:hover {
+      background-color: #218838;
+    }
+
+    /* Popup Styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 400px;
+      z-index: 1000;
+    }
+
+    .popup input, .popup select {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .popup button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .popup button:hover {
+      background-color: #0056b3;
+    }
+
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .doctor-card {
+        width: 100%;
+      }
+
+      .popup {
+        width: 90%;
+      }
+    }
+  </style>
+ 
+  </head>
+  <body>
+    <h1>Available Doctors</h1>
+    <div class="doctors-container">
+      <% doctors.forEach(doctor => { 
+        let aboutLength = doctor.about.length; 
+        let rating = 2; // Default rating
+        
+        if (aboutLength > 200) rating = 4;
+        else if (aboutLength > 150) rating = 3;
+      %>
+        <div class="doctor-card">
+          <img src="<%= doctor.image || '/images/demo-profile.jpg' %>" alt="<%= doctor.name %>" class="doctor-image">
+          <div class="doctor-name"><%= doctor.name %></div>
+          <div class="doctor-specialization">Specialization: <%= doctor.specialization %></div>
+          <div class="doctor-experience">Experience: <%= doctor.experience %> years</div>
+          <div class="doctor-about"><%= doctor.about %></div>
+          <div class="doctor-rating">
+            <% for (let i = 1; i <= 5; i++) { %>
+              <% if (i <= rating) { %>
+                <span>★</span>
+              <% } else { %>
+                <span class="inactive-star">★</span>
+              <% } %>
+            <% } %>
+          </div>
+          <button class="book-btn" onclick="openPopup('<%= doctor._id %>', '<%= doctor.name %>')">Book Appointment Now</button>
+        </div>
+      <% }) %>
+    </div>
+  
+    <!-- Popup -->
+    <div class="popup-overlay" id="popupOverlay"></div>
+    <div class="popup" id="popup">
+      <h2>Book Appointment</h2>
+      <form id="appointmentForm" action="/submit-appointment" method="post">
+        
+        <input type="hidden" id="doctorId" name="doctorId" required>  
+        <input type="hidden" id="doctorName" name="doctorName" required>
+        <input type="text" id="name" name="name" placeholder="Name" required>
+        <input type="number" id="age" name="age" placeholder="Age" required>
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <select id="gender" name="gender" required>
+          <option value="">Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+        <input type="text" id="symptoms" name="symptoms" placeholder="Symptoms" required>
+
+        <input type="date" id="date" name="date" required>
+        <input type="time" id="time" name="time" required>
+        <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
+        <button type="button" onclick="payNow()">Pay Now ₹499</button>
+      </form>
+    </div>
+  
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+      const popup = document.getElementById('popup');
+      const popupOverlay = document.getElementById('popupOverlay');
+      const doctorIdField = document.getElementById('doctorId');
+      const doctorNameField = document.getElementById('doctorName');
+  
+      function openPopup(doctorId, doctorName) {
+        doctorIdField.value = doctorId;
+        doctorNameField.value = doctorName;
+        popup.style.display = 'block';
+        popupOverlay.style.display = 'block';
+      }
+  
+      function closePopup() {
+        popup.style.display = 'none';
+        popupOverlay.style.display = 'none';
+      }
+  
+      popupOverlay.addEventListener('click', closePopup);
+  
+      async function payNow() {
+        const formData = new FormData(document.getElementById('appointmentForm'));
+        const data = {
+          doctorId: formData.get('doctorId'),
+          userName: formData.get('name'),
+          age: formData.get('age'),
+          email: formData.get('email'),
+          gender: formData.get('gender'),
+          symptoms: formData.get('symptoms'),
+          date: formData.get('date'),
+          time: formData.get('time'),
+          phone: formData.get('phone'),
+          amount: 499
+        };
+  
+        try {
+          const response = await fetch('/create-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+  
+          if (!response.ok) throw new Error('Failed to create order');
+          const order = await response.json();
+  
+          const options = {
+            key: 'rzp_test_ZfBGAU0kRu1Vid',
+            amount: order.amount,
+            currency: 'INR',
+            name: 'Appointment Payment',
+            description: 'Pay ₹499 to confirm your appointment',
+            order_id: order.id,
+            handler: async function (response) {
+              alert('Payment successful!');
+              closePopup();
+              await fetch('/verify-payment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
+                  doctorId: data.doctorId,
+                  userEmail: data.email,
+                  userName: data.userName,
+                  timeSlot: `${data.date} ${data.time}`
+                })
+              });
+            },
+            prefill: {
+              name: data.userName,
+              email: data.email,
+              contact: data.phone
+            },
+            theme: { color: '#3399cc' }
+          };
+
+          const formResponse = await fetch('/submit-appointment', {
+            method: 'POST',
+            body: formData
+          });
+
+          const rzp = new Razorpay(options);
+          rzp.open();
+        } catch (err) {
+          alert('Payment failed: ' + err.message);
+        }
+      }
+    </script>
+  </body>
+  </html>
+  

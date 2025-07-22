@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments and Mail Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .section-title {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+            padding: 15px;
+        }
+
+        .table-container {
+            margin-top: 40px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+
+        table thead tr {
+            background: #76ABAE;
+            color: white;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        table tbody tr:nth-of-type(even) {
+            background: #f3f3f3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Mail Data Section -->
+        <h2 class="section-title">Mail Data</h2>
+        <% if (mailDataList.length > 0) { %>
+            <% mailDataList.forEach(mail => { %>
+                <div class="card">
+                    <%- mail.html %> <!-- Render raw HTML content -->
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No mail data available.</p>
+        <% } %>
+
+        <!-- Payment History Section -->
+        <h2 class="section-title">Payment History</h2>
+        <div class="table-container">
+            <% if (appointments.length > 0) { %>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Serial No</th>
+                            <th>Patient Name</th>
+                            <th>Time Slot</th>
+                            <th>Meeting Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% appointments.forEach((appointment, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= user.name %></td> <!-- Assuming user.name is the patient's name -->
+                                <td><%= appointment.timeSlot %></td>
+                                <td>
+                                    <a href="<%= appointment.doctorId.meeting_link %>" target="_blank">
+                                        Join Meeting
+                                    </a>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p>No payment history available.</p>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

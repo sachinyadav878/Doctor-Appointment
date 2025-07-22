@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            background-color: black;
+            padding: 0;
+            margin: 0;
+        
+            font-family: system-ui;
+        }
+        .main{
+            display: flex;
+            justify-content: center;
+            font-size: 305px;
+            color: rgb(204, 255, 230);
+            text-shadow: 0 0 50px rgb(63, 102, 80);
+        }
+        .main img{
+            height: 250px;
+            width: 250px;
+        }
+        
+        .text1{
+            color: rgb(204, 255, 230);
+            text-align: center;
+            font-size: 25px;
+            
+        }
+        .text1 p {
+            padding-top: 80px;
+            margin-bottom: 20px;
+        }
+        
+        #link{
+            background-color: red;
+            color: white;
+            text-decoration: none;
+            padding: 5px;
+            
+            border-radius: 5px;
+          font-size: 25px;
+            
+        }
+        
+        @media(max-width:780px){
+            .main{
+                font-size: 150px;
+                margin-top: 100px;
+            }
+            .main img{
+                width: 130px;
+                height: 130px;
+                margin-top: -255px;
+            }
+        }
+    </style>
+    
+</head> 
+<body>
+ <div class="main">
+    <div>
+        <P>4&nbsp</P>
+    </div>
+    <div>
+        <img src="./images/ghost.png" alt="">
+    </div>
+    <div>
+        <p> &nbsp4</p>
+    </div>
+   
+</div>
+  
+ <div class="text1">
+    <h2>Don't be spooked</h2>
+    <p>The page which you are trying to visit is not available. <br> <br>
+        <a id="link" href="#">HOME</a>
+</div>
+
+
+    
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Bot</title>
+    <script src="./js/aidoc.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/aidoc.css">
+</head>
+<body>
+   <div class="heading">
+    <H1>AI HEALTH ASSISTANT</H1>
+   </div>
+<div class="main">
+ 
+    <div class="robot">
+        <div id="botSpeechContainer" style="position: relative; ">
+            <!-- Static bot image (when not speaking) -->
+            <img id="botImage" src="./images/bot.png" style="width: 98%; height: 98%; position: absolute; display: block;">
+            
+            <!-- Speaking bot GIF (when speaking) -->
+            <img id="speakingGif" src="./images/bot-gif.gif" style="width: 98%; height: 98%; position: absolute; display: none;">
+        </div>
+          
+     <button id="togglePlayPauseButton" >
+        <span id="playIcon">▶️</span>
+        <span id="pauseIcon" style="display: none;">⏸️</span>
+     </button><br>
+     <button id="con-doc">Connect with Doctor</button>
+       </div>
+     
+
+    <div class="container botField">
+        <div class="container inputf">
+            <span class="toggleon" ><i class="fa-solid fa-toggle-on"></i></span>
+            <span class="toggleoff"><i class="fa-solid fa-toggle-off"></i></span>
+            
+            <form id="patientForm">
+               <div class="inp-container">
+                <h1>DR. ROBO</h1>
+                <div>
+                    <label for="name">Patient Name:</label>
+                    <input type="text" id="name" required>
+                </div>
+
+                <div>
+                    <label for="symptoms">Symptoms:</label>
+                    <input type="text" id="symptoms" required>
+                </div>
+
+                <div>
+                    <label for="duration">Duration (days):</label>
+                    <input type="number" id="duration" required>
+                </div>
+
+                <div>
+                    <label for="medicine">Previous Medication:</label>
+                    <input type="text" id="medicine" required>
+                </div>
+
+                <div>
+                    <label for="language">Select Language:</label>
+                    <select id="language">
+                        <option value="en-US">English</option>
+                        <option value="hi-IN">Hindi</option>
+                        <option value="es-ES">Spanish</option>
+                    </select>
+                </div>
+
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+               </div>
+            </form>
+            <button id="stretchIcon" class="stretch-icon" style="display: none;">⇨</button>
+
+        </div>
+        <br>
+        <br>
+
+        <div class="output" id="output">
+            <div id="loadingSpinner" class="spinner" style="display: none;"></div>
+            <div id="responseText"></div>
+
+        </div> 
+    </div>
+    
+</div>
+  
+
+
+<script>
+   
+
+    document.querySelector('.toggleon').addEventListener('click', function() {
+        var tog1 = document.querySelector('.toggleon');
+        var tog2 = document.querySelector('.toggleoff');
+        var inp = document.querySelector('.inp-container');
+    
+        tog1.style.display = 'none';
+        tog2.style.display = 'block';
+        inp.style.display='none';
+    });
+    
+    document.querySelector('.toggleoff').addEventListener('click', function() {
+        var tog1 = document.querySelector('.toggleon');
+        var tog2 = document.querySelector('.toggleoff');
+        var inp = document.querySelector('.inp-container');
+    
+        tog2.style.display = 'none';
+        tog1.style.display = 'block';
+        inp.style.display='block';
+    });
+    document.getElementById('patientForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        // Show the loading spinner
+        document.querySelector('.toggleon').style.display = 'block';
+    })
+    
+</script>
+
+</body>
+</html>

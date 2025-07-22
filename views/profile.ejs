@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/profile.css">
+    
+</head>
+<body>
+    
+    <div class="profile-container">
+        <div class="profile-left">
+            <br><br><br>
+            <div class="profile-photo">
+                <img src="/images/<%= user.image %>" alt="Profile Photo">
+            </div>
+
+            <h2 class="profile-name"><%= user.name %></h2>
+            <br><br>
+            <div class="profile-info">
+                <p><strong>Gmail:</strong> <%= user.email %></p>
+                <p><strong>Gender:</strong> <%= user.gender %></p>
+                <p><strong>Specialist:</strong><%= user.specialist %> </p>
+                <p><strong>Experience:</strong> <%= user.experience %> years</p>
+                
+            </div>
+            <button style="margin-right: 300px;" onclick="Home()" class="home-button">Home</button>
+            
+            <button onclick="update()" class="update-button">Update Profile</button>
+            
+        </div>
+        <div class="profile-right">
+
+            <div class="description">
+                <h3>Description</h3>
+                <p><%= user.description %></p>
+                
+            </div>
+            <div class="education">
+                <h3>Educational Details</h3>
+                <ul>
+                    <% if (Array.isArray(user.education)) { %>
+                        <% user.education.forEach(function(detail) { %>
+                            <li><%= detail %></li>
+                        <% }); %>
+                    <% } else { %>
+                        <li><%= user.education %></li> 
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function update(){
+            window.location.href="update_profile";
+        }
+        function Home(){
+            window.location.href="appointments"
+        }
+    </script>
+</body>
+</html>

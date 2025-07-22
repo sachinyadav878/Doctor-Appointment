@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Panel</title>
+    <link rel="stylesheet" href="/css/Meet.css">
+</head>
+<body>
+    <h1>Teacher Panel</h1>
+    <form id="meeting-form">
+        <input type="text" id="title" placeholder="Meeting Title" required />
+        <input type="datetime-local" id="date" required />
+        <input type="text" id="link" placeholder="Meeting Link" required />
+        <select id="students" multiple required></select>
+        <button type="submit">Create Meeting</button>
+    </form>
+
+    <h2>Upcoming Meetings</h2>
+    <div id="teacher-upcoming-meetings"></div>
+
+    <script src="./app.js"></script>
+</body>
+</html>

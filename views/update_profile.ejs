@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="form-container">
+        <form action="/update_profile" method="post" enctype="multipart/form-data">
+            <h3>Update Profile</h3>
+            <% if (typeof message !== 'undefined') { %>
+                <div class="message"><%= message %></div>
+            <% } %>
+            <input type="text" name="update_name" value="<%= user.name %>" placeholder="Enter username" class="box" required>
+            <input type="email" name="update_email" value="<%= user.email %>" placeholder="Enter email" class="box" required>
+            <input type="Number" name="update_experience" value="<%= user.experience%>" class="box" placeholder="Experience">
+            <textarea class="box" name="update_description" id="description" placeholder="<%= user.description %>" ></textarea>
+            
+
+            <h3>Educational Details</h3>
+        <div id="education-fields">
+            <div class="education-field">
+                <input type="text" value="<%= user.education %>" name="update_education[]" placeholder="Enter educational qualification" class="box" required>
+            </div>
+        </div>
+        <button type="button" onclick="addEducationField()">Add More</button>
+
+        <input type="text" value="<%= user.specialist %>" name="update_specialist" id="specialist" placeholder="Specialist" class="box">
+
+            <input type="password" name="update_pass" placeholder="Enter old password" class="box">
+            <input type="password" name="new_pass" placeholder="Enter new password" class="box">
+            <input type="password" name="confirm_pass" placeholder="Confirm new password" class="box">
+            <input type="file" name="update_image" class="box" accept="image/jpg, image/jpeg, image/png">
+            <input type="submit" value="Update Now" class="btn">
+            <a href="/profile" class="btn">Go Back</a>
+        </form>
+    </div>
+
+
+    <script>
+        function addEducationField() {
+            const container = document.getElementById('education-fields');
+            const newField = document.createElement('div');
+            newField.classList.add('education-field');
+            newField.innerHTML = '<input type="text" name="education[]" placeholder="Enter educational qualification" class="box" required>';
+            container.appendChild(newField);
+        }
+    </script>
+</body>
+</html>
